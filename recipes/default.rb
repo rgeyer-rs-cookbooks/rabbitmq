@@ -23,6 +23,8 @@
 # while still using /etc/init.d/rabbitmq-server start
 # because of this we just put the rabbitmq-env.conf in place and let it rip
 
+rs_utils_marker :begin
+
 directory "/etc/rabbitmq/" do
   owner "root"
   group "root"
@@ -85,3 +87,5 @@ service "rabbitmq-server" do
   supports :status => true, :restart => true
   action [ :enable, :start ]
 end
+
+rs_utils_marker :end

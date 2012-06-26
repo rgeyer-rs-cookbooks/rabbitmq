@@ -9,6 +9,10 @@ depends           "apt", ">= 1.1"
 depends           "yum", ">= 0.5.0"
 depends           "erlang", ">= 0.9"
 
+%w{rs_utils sudo}.each do |dep|
+  depends dep
+end
+
 %w{ubuntu debian redhat centos scientific}.each do |os|
   supports os
 end
