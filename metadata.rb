@@ -17,6 +17,9 @@ end
   supports os
 end
 
+recipe "rabbitmq::default", "Installs and configures rabbitmq"
+recipe "rabbitmq::do_setup_monitoring", "Configures collectd monitoring for queues"
+
 attribute "rabbitmq",
   :display_name => "RabbitMQ",
   :description => "Hash of RabbitMQ attributes",

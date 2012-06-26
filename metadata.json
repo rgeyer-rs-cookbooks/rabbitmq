@@ -175,6 +175,8 @@
   "recommendations": {
   },
   "recipes": {
+    "rabbitmq::do_setup_monitoring": "Configures collectd monitoring for queues",
+    "rabbitmq::default": "Installs and configures rabbitmq",
     "rabbitmq::cluster": "Set up RabbitMQ clustering.",
     "rabbitmq": "Install and configure RabbitMQ"
   },
