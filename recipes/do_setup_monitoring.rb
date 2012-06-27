@@ -21,7 +21,7 @@
 
 rs_utils_enable_collectd_plugin "exec"
 
-rs_utils_begin :marker
+rs_utils_marker :begin
 
 sudo "rabbitmq" do
   user "rabbitmq" # TODO: This is not set by the cookbook, and may be specific to the OS package
@@ -46,4 +46,4 @@ template ::File.join(node[:rs_utils][:collectd_plugin_dir], 'rabbitmq.conf') do
   notifies :restart, resources(:service => "collectd") # This will probably only work on RightScale when this is run in the boot runlist with rs_utils::setup_monitoring
 end
 
-rs_utils_end :marker
+rs_utils_marker :end
