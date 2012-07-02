@@ -20,7 +20,7 @@ require 'optparse'
 
 # Defaults if arguments passed.
 @options = {
-  :instanceid => ENV['EC2_INSTANCE_ID'],
+  :instanceid => ENV['SERVER_UUID'],
   :interval => 20
 }
 
