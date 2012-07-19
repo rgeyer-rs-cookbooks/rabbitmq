@@ -23,7 +23,7 @@
 # while still using /etc/init.d/rabbitmq-server start
 # because of this we just put the rabbitmq-env.conf in place and let it rip
 
-rs_utils_marker :begin
+rightscale_marker :begin
 
 directory "/etc/rabbitmq/" do
   owner "root"
@@ -88,4 +88,4 @@ service "rabbitmq-server" do
   action [ :enable, :start ]
 end
 
-rs_utils_marker :end
+rightscale_marker :end

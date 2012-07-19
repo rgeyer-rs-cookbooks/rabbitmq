@@ -17,5 +17,5 @@
 
 <Plugin exec>
   #    userid    plugin executable                   plugin args
-  Exec "rabbitmq" "<%= node[:rs_utils][:collectd_lib] %>/plugins/rabbitmq" "-d" "<%= node[:rightscale][:instance_uuid] %>" "-n" 10
+  Exec "rabbitmq" "<%= node[:rightscale][:collectd_lib] %>/plugins/rabbitmq" "-d" "<%= node[:rightscale][:instance_uuid] %>" "-n" 10
 </Plugin>
