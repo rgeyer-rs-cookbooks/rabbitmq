@@ -19,6 +19,8 @@
 
 actions :add, :delete, :set_permissions, :clear_permissions
 
+default_action :add
+
 attribute :user, :kind_of => String, :name_attribute => true
 attribute :password, :kind_of => String
 attribute :vhost, :kind_of => String
