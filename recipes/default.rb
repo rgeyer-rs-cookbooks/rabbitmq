@@ -25,6 +25,8 @@
 
 rightscale_marker :begin
 
+include_recipe "erlang::default"
+
 directory "/etc/rabbitmq/" do
   owner "root"
   group "root"

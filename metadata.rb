@@ -9,7 +9,7 @@ depends           "apt", ">= 1.1"
 depends           "yum", ">= 0.5.0"
 depends           "erlang", ">= 0.9"
 
-%w{rightscale sudo}.each do |dep|
+%w{rightscale erlang sudo}.each do |dep|
   depends dep
 end
 
