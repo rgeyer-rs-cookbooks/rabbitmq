@@ -24,7 +24,7 @@ rightscale_enable_collectd_plugin "exec"
 rightscale_marker :begin
 
 sudo "rabbitmq" do
-  template "rabbitmqctl-sudoers.erb"
+  template "rabbitmqctl_sudoers.erb"
 end
 
 # Add the rabbitmq executable to node[:rightscale][:collectd_lib] /plugins/rabbitmq
