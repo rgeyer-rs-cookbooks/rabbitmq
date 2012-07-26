@@ -16,7 +16,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'logger'
 require 'optparse'
+
+# Create a simple logger class that responds to all methods and does nothing. Essentially just a silent logger stub
+class NilLogger
+  def method_missing(m, *args, &block)
+    # Do nothing
+  end
+end
 
 # Defaults if arguments passed.
 @options = {
@@ -24,6 +32,7 @@ require 'optparse'
   :interval => 20
 }
 
+@logger = NilLogger.new
 
 def usage(code = 0)
   out = "\n" + $0.split(' ')[0] + " usage:\n"
@@ -35,6 +44,8 @@ def usage(code = 0)
   out << "\t\tThe instance id of which the data is being collected\n"
   out << "\t-n, --sampling-interval \e[1;4mINTERVAL\e[0m\n"
   out << "\t\tThe interval (in second) between each sampling.\n"
+  out << "\t-l, --logfile \e[1;4mLOGFILE\e[0m\n"
+  out << "\t\tAn optional logfile.\n"
   out << "\t-h, --help\n\n"
   puts "\n" + out
   Kernel.exit(code)
@@ -52,8 +63,12 @@ def outputstats(now)
     queueMemory = q.split[2].to_i
     consumer = q.split[3].to_i
 
-    puts "PUTVAL \"#{hostname}/rabbitmq-#{name}/gauge-messages\" interval=#{@options[:interval]} #{now}:#{messages}"
-    puts "PUTVAL \"#{hostname}/rabbitmq-#{name}/memory\" interval=#{@options[:interval]} #{now}:#{queueMemory}"
+    msg = "PUTVAL \"#{hostname}/rabbitmq-#{name}/gauge-messages\" interval=#{@options[:interval]} #{now}:#{messages}"
+    @logger.info(msg)
+    puts msg
+    msg = "PUTVAL \"#{hostname}/rabbitmq-#{name}/memory\" interval=#{@options[:interval]} #{now}:#{queueMemory}"
+    @logger.info(msg)
+    puts msg
 
   end
 
@@ -64,6 +79,7 @@ opts = OptionParser.new
 opts.banner = "Usage: rabbitmq.rb"
 opts.on("-d ID", "--hostid ID") { |str| @options[:instanceid] = str }
 opts.on("-n INTERVAL", "--sampling-interval INTERVAL") { |str| @options[:interval] = str }
+opts.on("-l LOGFILE", "--logfile LOGFILE") { |logfile| @logger = Logger.new(logfile) }
 
 begin
   opts.parse(ARGV)

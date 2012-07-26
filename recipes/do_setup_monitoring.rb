@@ -24,10 +24,7 @@ rightscale_enable_collectd_plugin "exec"
 rightscale_marker :begin
 
 sudo "rabbitmq" do
-  user "rabbitmq" # TODO: This is not set by the cookbook, and may be specific to the OS package
-  commands ["/usr/sbin/rabbitmqctl"]
-  host "ALL"
-  nopasswd true
+  template "rabbitmqctl-sudoers.erb"
 end
 
 # Add the rabbitmq executable to node[:rightscale][:collectd_lib] /plugins/rabbitmq
