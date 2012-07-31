@@ -90,4 +90,6 @@ service "rabbitmq-server" do
   action [ :enable, :start ]
 end
 
+sys_firewall node['rabbitmq']['port']
+
 rightscale_marker :end
