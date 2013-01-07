@@ -19,9 +19,9 @@
 # Hack sudoers to allow the rabbitmq user to run /usr/sbin/rabbitmqctl
 # rabbitmq ALL=NOPASSWD: /usr/sbin/rabbitmqctl
 
-rs_utils_enable_collectd_plugin "exec"
+rightscale_enable_collectd_plugin "exec"
 
-rs_utils_marker :begin
+rightscale_marker :begin
 
 sudo "rabbitmq" do
   user "rabbitmq" # TODO: This is not set by the cookbook, and may be specific to the OS package
@@ -30,20 +30,20 @@ sudo "rabbitmq" do
   nopasswd true
 end
 
-# Add the rabbitmq executable to node[:rs_utils][:collectd_lib] /plugins/rabbitmq
-directory ::File.join(node[:rs_utils][:collectd_lib], 'plugins')
+# Add the rabbitmq executable to node[:rightscale][:collectd_lib] /plugins/rabbitmq
+directory ::File.join(node[:rightscale][:collectd_lib], 'plugins')
 
-cookbook_file ::File.join(node[:rs_utils][:collectd_lib], 'plugins', 'rabbitmq') do
+cookbook_file ::File.join(node[:rightscale][:collectd_lib], 'plugins', 'rabbitmq') do
   backup false
   source "rabbitmq.rb"
   mode 00755
 end
 
 # template the collectd rabbitmq conf file
-template ::File.join(node[:rs_utils][:collectd_plugin_dir], 'rabbitmq.conf') do
+template ::File.join(node[:rightscale][:collectd_plugin_dir], 'rabbitmq.conf') do
   backup false
   source "rabbitmq-collectd.conf.erb"
   notifies :restart, resources(:service => "collectd") # This will probably only work on RightScale when this is run in the boot runlist with rs_utils::setup_monitoring
 end
 
-rs_utils_marker :end
+rightscale_marker :end
