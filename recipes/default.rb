@@ -144,4 +144,6 @@ service node['rabbitmq']['service_name'] do
   not_if { platform?('smartos') }
 end
 
+sys_firewall node['rabbitmq']['port']
+
 rightscale_marker :end
