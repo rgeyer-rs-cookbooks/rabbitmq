@@ -23,8 +23,14 @@ rightscale_enable_collectd_plugin "exec"
 
 rightscale_marker :begin
 
+cookbook_file "/etc/sudoers.d/rabbitmq_not_requiretty" do
+  backup false
+  source "rabbitmq_not_requiretty"
+  mode 00440
+end
+
 sudo "rabbitmq" do
-  user "rabbitmq" # TODO: This is not set by the cookbook, and may be specific to the OS package
+  user "rabbitmq"
   commands ["/usr/sbin/rabbitmqctl"]
   host "ALL"
   nopasswd true
