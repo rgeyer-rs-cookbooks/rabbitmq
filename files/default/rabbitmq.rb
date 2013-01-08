@@ -44,7 +44,8 @@ def outputstats(now)
 
   hostname = @options[:instanceid]
 
-  @queues = `sudo rabbitmqctl -q list_queues name messages memory consumers 2>/dev/null`.to_a
+  @queues = `sudo rabbitmqctl -q list_queues name messages memory consumers 2>/dev/null`
+  @queues = @queues.split(%r{\t|\s})
 
   @queues.each do |q|
     name = q.split[0].to_s
